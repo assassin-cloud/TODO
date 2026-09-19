@@ -29,7 +29,57 @@ struct tasks{
 	string title;
 	string description;
 };
+tasks add[10000];
 
+void addtask(int&size, int&numberoftask){
+	cout << "How many tasks do you want to add:" << endl;
+	cin >> size;
+	if(size<=0 || size>10000 || size+numberoftask>10000){
+		cout << "Invalid Input!" << endl;
+		goback();
+	}
+	else{
+		cin.ignore();
+    	for(int i=numberoftask;i<size+numberoftask;i++){
+			cout << "Task " << i+1 << endl;
+			cout << "Enter Title:" << endl;
+			getline(cin, add[i].title);
+			cout << "Enter description:" << endl;
+			getline(cin, add[i].description);
+		}
+		numberoftask += size;
+	}
+}
+
+void viewtask(int numberoftask){
+	for(int i=0;i<numberoftask;i++){
+		cout << "Task " << i+1 << endl;
+		cout << "Title:" << endl;
+		cout << add[i].title << endl;
+		cout << "description:" << endl;
+		cout << add[i].description << endl;
+		cout << endl;
+	}
+	cout << "Number of tasks:" << numberoftask << endl;
+}
+
+void deletetask(int numberoftask){
+	cout << "Which task do you wanna delete:" << endl;
+	int remove {};
+	cin >> remove;
+	remove--;
+	if(remove>=0 && remove<numberoftask){
+		for(int i=remove;i<numberoftask-1;i++){
+			add[i] = add[i+1];
+		}
+		numberoftask--;
+		cout << "Successfully deleted!" << endl;
+		goback();
+	}
+	else{
+		cout << "Invalid task" << endl;
+	}
+}
 int main(){
 	tasks add[10000];
 	int numberoftask {};
@@ -43,53 +93,16 @@ int main(){
 		}
 		else{
 			if(userinput == 1){
-				cout << "How many tasks do you want to add:" << endl;
-				cin >> size;
-				if(size<=0 || size>10000 || size+numberoftask>10000){
-					cout << "Invalid Input!" << endl;
-					goback();
-				}
-				else{
-					cin.ignore();
-					for(int i=numberoftask;i<size+numberoftask;i++){
-						cout << "Task " << i+1 << endl;
-						cout << "Enter Title:" << endl;
-						getline(cin, add[i].title);
-						cout << "Enter description:" << endl;
-						getline(cin, add[i].description);
-					}
-					numberoftask += size;
-					goback();
-				}
+				addtask(size,numberoftask);
+				goback();
 			}
 			else if(userinput == 2){
-				for(int i=0;i<numberoftask;i++){
-					cout << "Task " << i+1 << endl;
-					cout << "Title:" << endl;
-					cout << add[i].title << endl;
-					cout << "description:" << endl;
-					cout << add[i].description << endl;
-					cout << endl;
-				}
-				cout << "Number of tasks:" << numberoftask << endl;
+				viewtask(numberoftask);
 				goback();
 			}
 			else if(userinput == 3){
-				cout << "Which task do you wanna delete:" << endl;
-				int remove {};
-				cin >> remove;
-				remove--;
-				if(remove>=0 && remove<numberoftask){
-					for(int i=remove;i<numberoftask-1;i++){
-						add[i] = add[i+1];
-					}
-					numberoftask--;
-					cout << "Successfully deleted!" << endl;
-					goback();
-				}
-				else{
-					cout << "Invalid task" << endl;
-				}
+				deletetask(numberoftask);
+				goback();
 			}
 			else if(userinput == 4){
 				break;
