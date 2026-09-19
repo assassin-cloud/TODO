@@ -81,7 +81,6 @@ void deletetask(int numberoftask){
 	}
 }
 int main(){
-	tasks add[10000];
 	int numberoftask {};
 	int size {};
 	while(true){
