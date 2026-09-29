@@ -8,8 +8,9 @@ void welcome(){
 	cout << "===============" << endl;
 	cout << "1. Add task" << endl;
 	cout << "2. View tasks" << endl;
-	cout << "3. Delete Task" << endl;
-	cout << "4. Exit" << endl;
+	cout << "3. Mark/Unmark tasks" << endl;
+	cout << "4. Delete Task" << endl;
+	cout << "5. Exit" << endl;
 	cout << "Input:" << endl;
 }
 
@@ -55,24 +56,11 @@ void addtask(int&size, int&numberoftask){
 			getline(cin, add[i].description);
 		}
 		numberoftask += size;
+		cout << "Tasks successfully added" << endl;
 	}
 }
 
-void taskmenu(int numberoftask, int numberoftaskscompleted){
-	cout << "============" << endl;
-	cout << "	TASKS    " << endl;
-	cout << "============" << endl;
-	cout << endl;
-	cout << "Number of Tasks: " << numberoftask << endl;
-	cout << "Number of Tasks completed: " << numberoftaskscompleted << endl;
-	cout << endl;
-	cout << "1. Show Tasks" << endl;
-	cout << "2. Mark/Unmark task as completed" << endl;
-	cout << "3. Go back" << endl;
-	cout << "INPUT:" << endl;
-}
-
-void viewtask(int numberoftask){
+void viewtask(int numberoftask, int numberoftaskscompleted){
 	for(int i=0;i<numberoftask;i++){
 		cout << "Task " << i+1 << endl;
 		cout << add[i].taskcompleted << endl;
@@ -82,6 +70,8 @@ void viewtask(int numberoftask){
 		cout << add[i].description << endl;
 		cout << endl;
 	}
+	cout << "Number of Tasks: " << numberoftask << endl;
+	cout << "Number of Tasks completed: " << numberoftaskscompleted << endl;
 }
 
 void deletetask(int& numberoftask, int& numberoftaskscompleted){
@@ -120,55 +110,41 @@ int main(){
 				goback();
 			}
 			else if(userinput == 2){
-				while(true){
-					taskmenu(numberoftask, numberoftaskscompleted);
-					int input {takeinputfromuser()};
-					if(cin.fail()){
-						cinfail();
+				viewtask(numberoftask, numberoftaskscompleted);
+				goback();
+			}
+			else if(userinput == 3){
+				cout << "Which task to mark/unmark:" << endl;
+				int marktaskinput {takeinputfromuser()};
+				marktaskinput--;
+				if(marktaskinput > numberoftask || marktaskinput < 0){
+					cout << "Invalid input" << endl;
+					continue;
+				}
+				else{
+					if(add[marktaskinput].taskcompleted != "Completed"){
+						add[marktaskinput].taskcompleted = "Completed";
+						numberoftaskscompleted++;
+						cout << "Successfully marked as completed" << endl;
+						goback();
 					}
 					else{
-						if(input == 1){
-							viewtask(numberoftask);
-							goback();
-						}
-						else if(input == 2){
-							cout << "Which task to mark/unmark:" << endl;
-							int marktaskinput {takeinputfromuser()};
-							marktaskinput--;
-							if(marktaskinput > numberoftask || marktaskinput < 0){
-								cout << "Invalid input" << endl;
-								continue;
-							}
-							else{
-								if(add[marktaskinput].taskcompleted != "Completed"){
-									add[marktaskinput].taskcompleted = "Completed";
-									numberoftaskscompleted++;
-								}
-								else{
-									add[marktaskinput].taskcompleted = "Incomplete";
-									numberoftaskscompleted--;
-								}
-							}
-						}
-						else if(input == 3){
-							break;
-						}
-						else{
-							cout << "Invalid Input!" << endl;
-						}
+						add[marktaskinput].taskcompleted = "Incomplete";
+						numberoftaskscompleted--;
+						cout << "Successfully marked as completed" << endl;
+						goback();
 					}
 				}
 			}
-			else if(userinput == 3){
+			else if(userinput == 4){
 				deletetask(numberoftask, numberoftaskscompleted);
 				goback();
 			}
-			else if(userinput == 4){
+			else if(userinput == 5){
 				break;
 			}
 			else{
 				cout << "Invalid input" << endl;
-				goback();
 			}
 		}
 	}
