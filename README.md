@@ -1,118 +1,83 @@
-TODO App
+````
+# TODO App
 
-A lightweight, interactive command-line TODO application written in C++. The application provides a simple way to create, view, complete, uncomplete, and delete tasks directly from the terminal.
+A lightweight, interactive **command-line TODO application written in C++**. The application allows users to create, view, complete, uncomplete, and delete tasks directly from the terminal.
 
-The project is designed as a beginner-friendly C++ application demonstrating fundamental concepts such as structures, functions, arrays, references, loops, conditional statements, input validation, and basic console interaction.
+This project is designed as a practical C++ application demonstrating fundamental programming concepts such as structures, functions, arrays, references, loops, conditional statements, input validation, and console-based user interaction.
 
-Table of Contents
+---
 
-Overview
+## Table of Contents
 
-Features
+- [Overview](#overview)
+- [Features](#features)
+- [Application Preview](#application-preview)
+- [Project Structure](#project-structure)
+- [How It Works](#how-it-works)
+- [Requirements](#requirements)
+- [Getting Started](#getting-started)
+- [Compilation](#compilation)
+- [Running the Application](#running-the-application)
+- [Usage](#usage)
+- [Task Data Model](#task-data-model)
+- [Data Storage](#data-storage)
+- [Input Validation](#input-validation)
+- [Current Limitations](#current-limitations)
+- [Future Improvements](#future-improvements)
+- [Learning Objectives](#learning-objectives)
+- [Code Organization](#code-organization)
+- [Example Workflow](#example-workflow)
+- [Contributing](#contributing)
+- [Roadmap](#roadmap)
+- [License](#license)
+- [Author](#author)
+- [Acknowledgements](#acknowledgements)
 
-Application Preview
+---
 
-Project Structure
+## Overview
 
-How It Works
+**TODO App** is a simple terminal-based task management application written in C++.
 
-Getting Started
-
-Compilation
-
-Usage
-
-Task Management
-
-Data Model
-
-Input Validation
-
-Current Limitations
-
-Future Improvements
-
-Learning Objectives
-
-Contributing
-
-License
-
-Overview
-
-The TODO App is a terminal-based task management program developed in C++. It provides a menu-driven interface through which users can manage a list of tasks.
+The application provides a menu-driven interface that allows users to manage a list of tasks without requiring any external libraries or frameworks.
 
 Each task contains:
 
-A completion status
+- A completion status
+- A title
+- A description
 
-A title
+The application also keeps track of:
 
-A description
+- The total number of tasks
+- The total number of completed tasks
 
-The application keeps track of both the total number of tasks and the number of completed tasks.
+The current version stores tasks in memory using a fixed-size array.
 
-The project currently uses an in-memory array to store tasks, meaning all tasks exist only while the program is running.
+---
 
-Features
-Task Creation
+## Features
 
-Users can add multiple tasks at once. Every task contains:
+- Add multiple tasks at once
+- Add a title to each task
+- Add a description to each task
+- Mark tasks as completed
+- Unmark completed tasks
+- View all tasks
+- View the total number of tasks
+- View the number of completed tasks
+- Delete tasks
+- Basic invalid-input handling
+- Interactive command-line interface
+- No external dependencies
 
-Title
+---
 
-Description
+## Application Preview
 
-Completion status
+When the application starts, the following menu is displayed:
 
-Newly created tasks are automatically assigned the status:
-
-Incomplete
-
-Task Viewing
-
-Users can view all currently stored tasks. Each task displays its:
-
-Task number
-
-Completion status
-
-Title
-
-Description
-
-The application also displays:
-
-Total number of tasks
-
-Total number of completed tasks
-
-Complete / Uncomplete Tasks
-
-Users can select a task by its number and toggle its completion status.
-
-For example:
-
-Incomplete → Completed
-Completed → Incomplete
-
-
-The completed-task counter is automatically updated when the status changes.
-
-Task Deletion
-
-Users can delete a task by entering its task number.
-
-After deletion, the remaining tasks are shifted so that the task list remains continuous.
-
-Input Handling
-
-The application includes basic handling for invalid menu input and provides feedback when an invalid task number is entered.
-
-Application Preview
-
-When the application starts, users are presented with the following menu:
-
+```text
 ===============
     TODO APP
 ===============
@@ -122,157 +87,206 @@ When the application starts, users are presented with the following menu:
 4. Delete Task
 5. Exit
 Input:
+````
 
-Project Structure
+ The user can select an operation by entering the corresponding number.
+
+---
+
+ ## Project Structure
+
+```
 assassin-cloud-todo/
 └── to-do/
     ├── function.cpp
     ├── function.h
     └── main.cpp
+```
 
-main.cpp
+ ### File Description
 
-Contains the application's main execution loop.
+ | File | Description |
+| --- | --- |
+| `main.cpp` | Contains the main program loop, menu handling, and task completion logic. |
+| `function.h` | Contains the `tasks` structure and function declarations. |
+| `function.cpp` | Contains the implementations of the application's functions. |
 
-Responsibilities include:
+---
 
-Displaying the main menu
+ ## How It Works
 
-Reading user choices
+ The application starts by initializing the task counters:
 
-Processing menu options
-
-Managing task completion state
-
-Maintaining task counters
-
-Exiting the application
-
-function.h
-
-Contains the declarations shared between the source files.
-
-It defines the tasks structure:
-
-struct tasks{
-    std::string taskcompleted;
-    std::string title;
-    std::string description;
-};
-
-
-It also contains declarations for the application's functions.
-
-function.cpp
-
-Contains the implementations of the application's functionality.
-
-Implemented functions include:
-
-welcome()
-
-takeinputfromuser()
-
-cinfail()
-
-goback()
-
-addtask()
-
-viewtask()
-
-deletetask()
-
-How It Works
-
-The program starts by initializing the task counters:
-
+```
 int numberoftask {};
 int size {};
 int numberoftaskscompleted {};
+```
 
+ The program then continuously displays the main menu until the user chooses the exit option.
 
-It then enters an infinite menu loop.
+ The available operations are:
 
-The user selects one of the available operations:
-
+```
 1 → Add task
 2 → View tasks
-3 → Mark/Unmark task
+3 → Mark/Unmark tasks
 4 → Delete task
 5 → Exit
+```
 
+ The application uses separate functions for different operations.
 
-The program continues running until the user selects option 5.
+ For example:
 
-Getting Started
-Prerequisites
+```
+void welcome();
+int takeinputfromuser();
+void cinfail();
+void goback();
+void addtask(int& size, int& numberoftask);
+void viewtask(int numberoftask, int numberoftaskscompleted);
+void deletetask(int& numberoftask, int& numberoftaskscompleted);
+```
 
-To build and run this project, you need a C++ compiler.
+ This keeps the implementation separated into smaller and easier-to-understand components.
 
-Supported compilers include:
+---
 
-GCC
+ ## Requirements
 
-Clang
+ To compile and run this project, you need a C++ compiler.
 
-Microsoft Visual C++ (MSVC)
+ ### Supported Compilers
 
-MinGW
+ The project can be compiled using:
 
-The project uses standard C++ libraries such as:
+ - GCC
+- Clang
+- Microsoft Visual C++ (MSVC)
+- MinGW
 
-<iostream>
-<string>
+ ### Standard Libraries Used
 
+ The project currently uses standard C++ libraries:
 
-No external dependencies are required.
+```
+#include <iostream>
+#include <string>
+```
 
-Compilation
+ No external libraries or packages are required.
 
-Navigate to the to-do directory:
+---
 
-cd assassin-cloud-todo/to-do
+ ## Getting Started
 
+ ### Clone the Repository
 
-Compile the application using GCC:
+ If the project is hosted on GitHub, clone it using:
 
+```
+git clone <repository-url>
+```
+
+ Then move into the project directory:
+
+```
+cd assassin-cloud-todo
+```
+
+ Navigate to the source directory:
+
+```
+cd to-do
+```
+
+ You should see:
+
+```
+function.cpp
+function.h
+main.cpp
+```
+
+---
+
+ ## Compilation
+
+ ### Using GCC
+
+ From inside the `to-do` directory, run:
+
+```
 g++ main.cpp function.cpp -o todo
+```
 
+ For C++11:
 
-Run the application:
+```
+g++ -std=c++11 main.cpp function.cpp -o todo
+```
 
-Linux / macOS
+ For C++17:
+
+```
+g++ -std=c++17 main.cpp function.cpp -o todo
+```
+
+ If compilation is successful, an executable named `todo` will be created.
+
+---
+
+ ## Running the Application
+
+ ### Linux / macOS
+
+```
 ./todo
+```
 
-Windows
+ ### Windows
+
+ If compiled using MinGW:
+
+```
 todo.exe
+```
 
+ or:
 
-Or compile directly as:
+```
+.\todo.exe
+```
 
-g++ main.cpp function.cpp -o todo.exe
+---
 
-Usage
+ # Usage
 
-After launching the application, select an option from the menu.
+ ## 1\. Add a Task
 
-Add a Task
+ Select option:
 
-Select:
-
+```
 1
+```
 
+ The application asks how many tasks you want to add:
 
-The application asks:
-
+```
 How many tasks do you want to add:
+```
 
+ For each task, you will be asked to enter:
 
-After specifying the number of tasks, provide a title and description for each task.
+```
+Enter Title:
+Enter description:
+```
 
-Example:
+ Example:
 
+```
 How many tasks do you want to add:
 2
 
@@ -289,16 +303,29 @@ Enter description:
 Implement task management features
 
 Tasks successfully added
+```
 
-View Tasks
+ Every newly created task starts with the status:
 
-Select:
+```
+Incomplete
+```
 
+---
+
+ ## 2\. View Tasks
+
+ Select option:
+
+```
 2
+```
 
+ The application displays all currently stored tasks.
 
-Example output:
+ Example:
 
+```
 Task 1
 Incomplete
 Title:
@@ -315,482 +342,816 @@ Implement task management features
 
 Number of Tasks: 2
 Number of Tasks completed: 0
+```
 
-Mark a Task as Completed
+ The displayed information includes:
 
-Select:
+ - Task number
+- Completion status
+- Title
+- Description
+- Total number of tasks
+- Number of completed tasks
 
+---
+
+ ## 3\. Mark or Unmark a Task
+
+ Select option:
+
+```
 3
+```
 
+ The application asks:
 
-The application asks for the task number:
-
+```
 Which task to mark/unmark:
+```
 
+ Enter the task number.
 
-For example:
+ For example:
 
-Which task to mark/unmark:
+```
 1
+```
 
+ If the task is incomplete, it becomes completed:
+
+```
 Successfully marked as completed
+```
 
+ The task status changes from:
 
-The selected task will now have:
-
-Completed
-
-Unmark a Completed Task
-
-The same menu option can be used to change a completed task back to incomplete.
-
-Completed → Incomplete
-
-
-Example:
-
-Which task to mark/unmark:
-1
-
-Successfully marked as Incompleted
-
-Delete a Task
-
-Select:
-
-4
-
-
-Then enter the task number:
-
-Which task do you wanna delete:
-2
-
-
-If the task exists, it will be removed:
-
-Successfully deleted!
-
-
-The remaining tasks are shifted to fill the deleted task's position.
-
-Exit
-
-Select:
-
-5
-
-
-The application exits the main loop and terminates.
-
-Task Management
-
-Each task is represented by the following structure:
-
-struct tasks{
-    std::string taskcompleted;
-    std::string title;
-    std::string description;
-};
-
-Task Status
-
-The application currently uses two status values:
-
+```
 Incomplete
+```
+
+ to:
+
+```
 Completed
+```
 
-Task Numbering
+ If the task is already completed, selecting it again changes it back to:
 
-Tasks are displayed using one-based numbering:
+```
+Incomplete
+```
+
+ The completed-task counter is updated automatically.
+
+---
+
+ ## 4\. Delete a Task
+
+ Select option:
+
+```
+4
+```
+
+ The application asks:
+
+```
+Which task do you wanna delete:
+```
+
+ Enter the task number.
+
+ For example:
+
+```
+2
+```
+
+ If the task exists, the application displays:
+
+```
+Successfully deleted!
+```
+
+ After deletion, the remaining tasks are shifted to fill the empty position.
+
+ For example:
+
+```
+Before deletion:
 
 Task 1
 Task 2
 Task 3
+Task 4
+```
 
+ If Task 2 is deleted:
 
-Internally, however, the array uses zero-based indexing:
+```
+After deletion:
 
-Task 1 → index 0
-Task 2 → index 1
-Task 3 → index 2
+Task 1
+Task 3
+Task 4
+```
 
+ If the deleted task was completed, the completed-task counter is also decreased.
 
-The program converts the user's task number into the corresponding array index before accessing the task.
+---
 
-Data Storage
+ ## 5\. Exit
 
-Tasks are currently stored in a global array:
+ Select:
 
-tasks add[1000];
+```
+5
+```
 
+ The application exits the main loop and terminates.
 
-This means the application's task data is stored in memory while the program is running.
+---
 
-Important
+ ## Task Data Model
 
-Tasks are not persistent.
+ Tasks are represented using a C++ structure defined in `function.h`:
 
-When the application is closed, all tasks are lost.
-
-For example:
-
-Program starts
-      ↓
-Tasks are added
-      ↓
-Tasks exist in memory
-      ↓
-Program exits
-      ↓
-Tasks are lost
-
-
-A future version could implement file-based or database storage to preserve tasks between sessions.
-
-Input Validation
-
-The application includes basic validation for several types of invalid input.
-
-For example, invalid menu input is handled using:
-
-if(cin.fail()){
-    cinfail();
-}
-
-
-The cinfail() function resets the input stream and removes invalid input from the buffer.
-
-Task-related operations also check whether the requested task number is within the currently available range.
-
-Current Limitations
-
-The current implementation is intentionally simple and has several areas that could be improved.
-
-Fixed-Size Storage
-
-Tasks are stored in:
-
-tasks add[1000];
-
-
-This means the actual storage capacity is limited to 1,000 elements.
-
-No Persistent Storage
-
-Tasks are not saved to disk, so all data is lost after the program terminates.
-
-Basic Input Validation
-
-The current input validation primarily handles invalid numeric input and basic task-number validation. More comprehensive validation could be added for empty titles, descriptions, and other unexpected input.
-
-String-Based Completion Status
-
-Task completion is represented using strings:
-
-"Completed"
-"Incomplete"
-
-
-An enum, bool, or dedicated status type could provide stronger type safety.
-
-Global Task Array
-
-The task array is currently global:
-
-tasks add[1000];
-
-
-A class or dedicated task manager could provide better encapsulation and organization.
-
-No Task Editing
-
-The current application allows users to create, view, complete/uncomplete, and delete tasks, but does not provide an option to edit an existing task's title or description.
-
-No Search or Filtering
-
-Users cannot currently search for a specific task or filter tasks by completion status.
-
-Future Improvements
-
-Several improvements could be introduced in future versions.
-
-Storage
-
-Save tasks to a text file
-
-Load tasks when the application starts
-
-Add JSON-based storage
-
-Introduce a database such as SQLite
-
-Better Data Structures
-
-Replace the fixed-size array with:
-
-std::vector<tasks>
-
-
-This would make task storage more flexible and easier to manage.
-
-Task Editing
-
-Add functionality to:
-
-Edit task titles
-
-Edit descriptions
-
-Change task status
-
-Task Priority
-
-Introduce priorities such as:
-
-Low
-Medium
-High
-
-Due Dates
-
-Allow users to assign deadlines to tasks.
-
-Example:
-
-Title: Complete C++ Project
-Due Date: 2026-10-15
-
-Search
-
-Allow users to search tasks by:
-
-Title
-
-Description
-
-Status
-
-Filtering
-
-Provide options such as:
-
-Show all tasks
-Show completed tasks
-Show incomplete tasks
-
-Sorting
-
-Tasks could be sorted by:
-
-Title
-
-Priority
-
-Due date
-
-Completion status
-
-Improved User Interface
-
-The terminal interface could be enhanced with:
-
-Colors
-
-Better formatting
-
-Clear screen functionality
-
-Confirmation prompts
-
-Improved error messages
-
-Object-Oriented Design
-
-The project could eventually be redesigned around classes such as:
-
-class Task
-class TodoManager
-
-
-This would provide better separation of responsibilities and make the project easier to extend.
-
-Learning Objectives
-
-This project demonstrates several fundamental C++ programming concepts.
-
-Functions
-
-The application separates functionality into multiple functions:
-
-void welcome();
-int takeinputfromuser();
-void addtask(int& size, int& numberoftask);
-void viewtask(int numberoftask, int numberoftaskscompleted);
-void deletetask(int& numberoftask, int& numberoftaskscompleted);
-
-Structures
-
-The tasks structure groups related task information together:
-
+```
 struct tasks{
     std::string taskcompleted;
     std::string title;
     std::string description;
 };
+```
 
-Arrays
+ Each task contains three pieces of information.
 
-The application stores multiple tasks using an array:
+ ### Completion Status
 
+ The application currently uses two status values:
+
+```
+Completed
+Incomplete
+```
+
+ ### Title
+
+ Stores the name or short title of the task.
+
+ Example:
+
+```
+Learn C++
+```
+
+ ### Description
+
+ Stores additional information about the task.
+
+ Example:
+
+```
+Practice functions, arrays, and structures.
+```
+
+---
+
+ ## Task Storage
+
+ The application currently uses a global array:
+
+```
 tasks add[1000];
+```
 
-References
+ Tasks are stored using zero-based array indexing.
 
-References are used to modify counters directly inside functions:
+ For example:
+
+ | User Task Number | Array Index |
+| --- | --- |
+| Task 1 | 0 |
+| Task 2 | 1 |
+| Task 3 | 2 |
+| Task 4 | 3 |
+
+When a user enters a task number, the application decreases it by one to convert the user-facing task number into an array index.
+
+---
+
+ ## Data Storage
+
+ Currently, all tasks are stored only in memory.
+
+ This means tasks are available while the application is running, but they are not permanently saved.
+
+ The current lifecycle is:
+
+```
+Start Application
+       ↓
+Add Tasks
+       ↓
+Tasks Stored in Memory
+       ↓
+Manage Tasks
+       ↓
+Exit Application
+       ↓
+Tasks Are Lost
+```
+
+ If the program is started again, the task list begins empty.
+
+---
+
+ ## Input Validation
+
+ The application contains basic input validation.
+
+ If invalid numeric input causes `std::cin` to enter a failed state, the program calls:
+
+```
+cinfail();
+```
+
+ The function performs:
+
+```
+cin.clear();
+cin.ignore(1000, '\n');
+```
+
+ This clears the error state and removes invalid characters from the input buffer.
+
+ The application also validates task numbers before accessing a task.
+
+ Invalid task selections result in messages such as:
+
+```
+Invalid task
+```
+
+ or:
+
+```
+Invalid input
+```
+
+---
+
+ ## Current Limitations
+
+ The current version is intentionally simple and has several limitations.
+
+ ### Fixed-Size Array
+
+ Tasks are stored in:
+
+```
+tasks add[1000];
+```
+
+ Therefore, the actual array has space for 1,000 tasks.
+
+ ### No Persistent Storage
+
+ Tasks are lost when the application exits because they are not saved to a file or database.
+
+ ### No Task Editing
+
+ The application currently does not provide an option to edit an existing task's:
+
+ - Title
+- Description
+
+ ### No Search
+
+ There is currently no functionality to search for tasks.
+
+ ### No Filtering
+
+ Users cannot currently filter tasks by:
+
+ - Completed status
+- Incomplete status
+
+ ### No Priority
+
+ Tasks do not currently have priority levels.
+
+ ### No Due Dates
+
+ Tasks do not currently support deadlines or due dates.
+
+ ### Basic Input Validation
+
+ Input handling can be improved to handle more edge cases, including unexpected input during task creation.
+
+ ### Global State
+
+ The task array is currently declared globally:
+
+```
+tasks add[1000];
+```
+
+ A future version could encapsulate task management inside a class.
+
+ ### Capacity Check Mismatch
+
+ The current implementation declares an array of 1,000 tasks:
+
+```
+tasks add[1000];
+```
+
+ However, `addtask()` contains validation that allows values up to 10,000.
+
+ This should be corrected in a future version so that the validation limit matches the actual storage capacity.
+
+---
+
+ ## Future Improvements
+
+ ### Persistent Storage
+
+ Implement file storage so tasks remain available after restarting the application.
+
+ Possible approaches include:
+
+ - Text files
+- CSV files
+- JSON files
+- SQLite
+- Other databases
+
+ Possible workflow:
+
+```
+Application Start
+       ↓
+Load Tasks From File
+       ↓
+Manage Tasks
+       ↓
+Save Tasks
+       ↓
+Application Exit
+```
+
+ ### Replace Array With `std::vector`
+
+ The fixed-size array:
+
+```
+tasks add[1000];
+```
+
+ could be replaced with:
+
+```
+std::vector<tasks>
+```
+
+ This would provide dynamic storage and make task management more flexible.
+
+ ### Edit Tasks
+
+ Add an option allowing users to modify:
+
+ - Task title
+- Task description
+- Completion status
+
+ ### Task Priorities
+
+ Introduce priority levels:
+
+```
+Low
+Medium
+High
+```
+
+ ### Due Dates
+
+ Allow users to specify task deadlines.
+
+ Example:
+
+```
+Title: Complete C++ Project
+Due Date: 2026-10-15
+Priority: High
+```
+
+ ### Search Functionality
+
+ Allow users to search for tasks using:
+
+ - Title
+- Description
+- Status
+
+ ### Task Filtering
+
+ Add options such as:
+
+```
+Show all tasks
+Show completed tasks
+Show incomplete tasks
+```
+
+ ### Sorting
+
+ Allow tasks to be sorted by:
+
+ - Title
+- Priority
+- Due date
+- Completion status
+
+ ### Confirmation Prompts
+
+ Add confirmation before destructive operations.
+
+ Example:
+
+```
+Are you sure you want to delete this task? (y/n)
+```
+
+ ### Improved User Interface
+
+ The command-line interface could be improved with:
+
+ - Colors
+- Better formatting
+- Clearer menus
+- Improved error messages
+- Screen clearing
+- Better navigation
+
+ ### Object-Oriented Design
+
+ The application could eventually be redesigned using classes such as:
+
+```
+class Task
+{
+    // Task information
+};
+```
+
+ and:
+
+```
+class TodoManager
+{
+    // Task management functionality
+};
+```
+
+ This would provide better encapsulation and make the application easier to maintain and extend.
+
+---
+
+ ## Learning Objectives
+
+ This project demonstrates several fundamental C++ concepts.
+
+ ### Functions
+
+ The application separates functionality into individual functions:
+
+```
+void welcome();
+int takeinputfromuser();
+void cinfail();
+void goback();
 
 void addtask(int& size, int& numberoftask);
 
-Loops
+void viewtask(
+    int numberoftask,
+    int numberoftaskscompleted
+);
 
-The main application uses a loop to continuously display the menu until the user chooses to exit.
+void deletetask(
+    int& numberoftask,
+    int& numberoftaskscompleted
+);
+```
 
-Conditional Statements
+ ### Structures
 
-if, else if, and else statements are used to process user selections and validate input.
+ The `tasks` structure groups related task information:
 
-Standard Library
+```
+struct tasks{
+    std::string taskcompleted;
+    std::string title;
+    std::string description;
+};
+```
 
-The project uses standard C++ functionality including:
+ ### Arrays
 
-<iostream>
-<string>
+ Multiple tasks are stored in an array:
 
-Code Organization
+```
+tasks add[1000];
+```
 
-The project follows a simple separation between declarations, implementations, and program execution.
+ ### References
 
-                 ┌──────────────┐
-                 │   main.cpp   │
-                 │              │
-                 │ Main Loop    │
-                 │ Menu Logic   │
-                 └──────┬───────┘
-                        │
-                        ▼
-                 ┌──────────────┐
-                 │ function.h   │
-                 │              │
-                 │ Structures   │
-                 │ Declarations │
-                 └──────┬───────┘
-                        │
-                        ▼
-                 ┌──────────────┐
-                 │ function.cpp │
-                 │              │
-                 │ Functions    │
-                 │ Implementation│
-                 └──────────────┘
+ References are used when functions need to modify variables from the caller:
 
+```
+void addtask(int& size, int& numberoftask);
+```
 
-This organization keeps the program logic separated from function declarations and implementations.
+ ### Loops
 
-Error Handling
+ The main application uses a loop to repeatedly display the menu until the user chooses to exit.
 
-The application provides basic error messages for invalid operations.
+ ### Conditional Statements
 
-Examples include:
+ The application uses `if`, `else if`, and `else` statements to process menu choices and validate input.
 
-Invalid Input!
+ ### Strings
 
+ The project uses `std::string` to store:
 
-and:
+ - Task status
+- Task title
+- Task description
 
-Invalid task
+ ### Input and Output
 
+ The application uses `std::cin` and `std::cout` for terminal interaction.
 
-This prevents some invalid user input from causing the application to immediately terminate.
+---
 
-Contributing
+ ## Code Organization
 
-Contributions and improvements are welcome.
+ The project separates declarations, implementations, and program execution.
 
-A typical contribution workflow is:
+```
+                  ┌──────────────────┐
+                  │     main.cpp     │
+                  │                  │
+                  │  Main Program    │
+                  │  Menu Handling   │
+                  │  Task Logic      │
+                  └────────┬─────────┘
+                           │
+                           ▼
+                  ┌──────────────────┐
+                  │   function.h     │
+                  │                  │
+                  │  Structures      │
+                  │  Declarations    │
+                  └────────┬─────────┘
+                           │
+                           ▼
+                  ┌──────────────────┐
+                  │   function.cpp   │
+                  │                  │
+                  │  Implementations │
+                  │  Task Functions  │
+                  └──────────────────┘
+```
 
-Fork the repository.
+ This structure keeps the application organized and makes individual components easier to understand.
 
-Create a new branch.
+---
 
-Make your changes.
+ ## Example Workflow
 
-Test the application.
+ A typical session might look like this:
 
-Commit your changes.
+```
+Start Application
+       ↓
+Select "Add task"
+       ↓
+Create tasks
+       ↓
+Select "View tasks"
+       ↓
+Review tasks
+       ↓
+Select "Mark/Unmark tasks"
+       ↓
+Complete a task
+       ↓
+Select "Delete Task"
+       ↓
+Remove an unwanted task
+       ↓
+Select "Exit"
+```
 
-Push the branch.
+---
 
-Open a pull request.
+ ## Example Session
 
-When contributing, try to keep the code readable and maintain the existing project structure unless a larger architectural improvement is being proposed.
+```
+===============
+    TODO APP
+===============
+1. Add task
+2. View tasks
+3. Mark/Unmark tasks
+4. Delete Task
+5. Exit
+Input:
+1
 
-Development Guidelines
+How many tasks do you want to add:
+2
 
-When modifying the project:
+Enter Title:
+Learn C++
 
-Use clear and descriptive function names.
+Enter description:
+Study functions and structures
 
-Keep functions focused on a single responsibility.
+Enter Title:
+Build TODO App
 
-Validate user input where appropriate.
+Enter description:
+Create a command-line task manager
 
-Avoid unnecessary global state in future improvements.
+Tasks successfully added
 
-Prefer standard C++ containers and types where appropriate.
+Input anything to go back:
+back
+```
 
-Keep the code easy to read and maintain.
+ Viewing the tasks:
 
-Test all task operations after making changes.
+```
+Task 1
+Incomplete
+Title:
+Learn C++
+description:
+Study functions and structures
 
-Roadmap
+Task 2
+Incomplete
+Title:
+Build TODO App
+description:
+Create a command-line task manager
 
-Potential development roadmap:
+Number of Tasks: 2
+Number of Tasks completed: 0
+```
 
-[x] Add tasks
-[x] View tasks
-[x] Mark tasks as completed
-[x] Unmark completed tasks
-[x] Delete tasks
-[x] Track completed task count
-[ ] Edit tasks
-[ ] Persistent file storage
-[ ] Search tasks
-[ ] Filter tasks
-[ ] Task priorities
-[ ] Due dates
-[ ] Improved input validation
-[ ] Replace fixed array with std::vector
-[ ] Object-oriented redesign
-[ ] Database support
+ After completing Task 1:
 
-License
+```
+Which task to mark/unmark:
+1
 
-No license has currently been specified for this project.
+Successfully marked as completed
+```
 
-If this project is intended to be publicly distributed or open source, a license such as the MIT License can be added in a future revision.
+ The completed-task count becomes:
 
-Author
+```
+Number of Tasks: 2
+Number of Tasks completed: 1
+```
 
-Assassin Cloud TODO
+---
 
-A C++ command-line TODO application created as a practical project for learning and applying fundamental C++ programming concepts.
+ ## Contributing
 
-Acknowledgements
+ Contributions are welcome.
 
-This project was developed using standard C++ functionality and does not require any external libraries or frameworks.
+ To contribute:
 
-Final Notes
+ 1. Fork the repository.
+2. Create a new branch.
+3. Make your changes.
+4. Test the application.
+5. Commit your changes.
+6. Push the branch.
+7. Open a pull request.
 
-The TODO App is intentionally kept simple so that its underlying C++ concepts remain easy to understand. It provides a foundation that can be progressively expanded into a more complete task-management application.
+ Example:
 
-The current implementation focuses on core task operations, while future versions can introduce persistent storage, improved data structures, object-oriented design, advanced task properties, and a richer command-line interface.
+```
+git checkout -b feature/task-editing
+```
+
+ After making your changes:
+
+```
+git add .
+git commit -m "Add task editing functionality"
+git push origin feature/task-editing
+```
+
+ Then create a pull request on GitHub.
+
+ ### Contribution Guidelines
+
+ When contributing to the project:
+
+ - Keep the code readable.
+- Use descriptive variable and function names.
+- Avoid unnecessary duplication.
+- Validate user input.
+- Keep related functionality organized.
+- Test changes before submitting a pull request.
+- Follow the existing project structure where practical.
+
+---
+
+ ## Roadmap
+
+ - [x] Add tasks
+- [x] View tasks
+- [x] Mark tasks as completed
+- [x] Unmark completed tasks
+- [x] Delete tasks
+- [x] Track completed task count
+- [x] Basic input validation
+- [ ] Edit tasks
+- [ ] Persistent file storage
+- [ ] Replace fixed array with `std::vector`
+- [ ] Search tasks
+- [ ] Filter tasks
+- [ ] Task priorities
+- [ ] Due dates
+- [ ] Improved input validation
+- [ ] Confirmation before deletion
+- [ ] Improved terminal UI
+- [ ] Object-oriented redesign
+- [ ] Database support
+
+---
+
+ ## License
+
+ No license has currently been specified for this project.
+
+ If you intend to distribute this project as open-source software, consider adding an appropriate license, such as the MIT License.
+
+ A license file can be added to the repository as:
+
+```
+LICENSE
+```
+
+---
+
+ ## Author
+
+ **Assassin Cloud**
+
+ A C++ command-line TODO application created as a practical project for learning and applying fundamental C++ programming concepts.
+
+---
+
+ ## Acknowledgements
+
+ This project uses standard C++ functionality and does not require external libraries or frameworks.
+
+ The application was built using standard components such as:
+
+ - C++
+- `<iostream>`
+- `<string>`
+
+---
+
+ ## Final Notes
+
+ The TODO App provides a simple foundation for learning C++ through a practical project.
+
+ The current implementation focuses on the core operations required for a basic task manager:
+
+```
+Create
+  ↓
+View
+  ↓
+Complete / Uncomplete
+  ↓
+Delete
+```
+
+ The project can be progressively expanded with persistent storage, dynamic data structures, task editing, priorities, deadlines, searching, filtering, and object-oriented architecture.
+
+```
+
+```
